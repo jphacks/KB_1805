@@ -6,6 +6,7 @@ import pyocr.builders
 import cv2
 from PIL import Image
 import numpy as np
+
 import sys
 import os
 
@@ -79,7 +80,6 @@ def img2md(input_path, output_path):
     word_box = img2wordbox(img)
     img = delwords(Image.open(input_path), word_box)
     fig_box = img2figure(img, output_path)
-
 
     words = []
     for box in word_box:
