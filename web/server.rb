@@ -2,6 +2,10 @@ require 'bundler/setup'
 require 'sinatra'
 require 'haml'
 
+require 'fileutils'
+
+require_relative './convertor.rb'
+
 get "/" do
   haml :index
 end
@@ -17,7 +21,11 @@ post "/upload" do
       f.write @img_file[:tempfile].read
     end
 
-    @msg = "The image has succesfully uploaded"
+    # Convertor::convert(@img_file[:filename])
+    res_file_path = "./tmp/blank.md"
+    content_type Convertor.file_type(res_file_path)
+    attachment res_file_path
+    File.read(res_file_path)
   else
     @msg = "Error"
   end
