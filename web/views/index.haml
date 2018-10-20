@@ -1,0 +1,9 @@
+!!!html5
+%html
+  %body
+    %h1 img2md
+    %p Convert an image to a markdown file.
+
+    %form{:action => "./upload", :method => "post", :enctype => "multipart/form-data"}
+      %input{:type => "file",   :name => "file"}
+      %input{:type => "submit", :name => "submit"}
