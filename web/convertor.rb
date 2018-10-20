@@ -17,5 +17,8 @@ module Convertor
       STDERR.puts "Start converting the file '#{input_path}'"
       `python ./tool/img2md.py #{input_path} #{output_path}`
     end
+
+    def compress_zip(dir_path)
+    end
   end
 end

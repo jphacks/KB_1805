@@ -6,6 +6,7 @@ require 'fileutils'
 require 'securerandom'
 
 require_relative './convertor.rb'
+require_relative './compress.rb'
 
 get "/" do
   haml :index
@@ -19,24 +20,29 @@ post "/upload" do
     uuid = SecureRandom.uuid
 
     input_file_path = @img_file[:tempfile].path
-    @res_file_path  = File.join("tmp", "#{uuid}.md")
+    @res_dir_path   = File.join("tmp", "#{uuid}")
+    @res_zip_path   = File.join("tmp", "#{uuid}.zip")
+    Convertor::convert(input_file_path, @res_dir_path)
+    # @res_dir_path   = File.join("tmp", "test")
+    # @res_zip_path   = File.join("tmp", "test.zip")
 
-    Convertor::convert(input_file_path, @res_file_path)
-    content_type Convertor.file_type(@res_file_path)
+    zf = ZipFileGenerator.new(@res_dir_path, @res_zip_path)
+    zf.write
 
     input_file_name = @img_file[:filename]
     attachment_name = File.basename(input_file_name, File.extname(input_file_name))
-    attachment "#{attachment_name}.md"
-    File.read(@res_file_path)
 
-    STDERR.puts "#{attachment_name}.md"
+    content_type Convertor.file_type(@res_dir_path)
+    attachment "#{attachment_name}.zip"
+    File.read(@res_zip_path)
   else
     @msg = "Error"
   end
 end
 
 after "/upload" do
-  if @res_file_path && Dir[@res_file_path]
-    FileUtils.rm_rf(@res_file_path)
+  if @res_dir_path && Dir[@res_dir_path]
+    FileUtils.rm_rf(@res_dir_path)
+    FileUtils.rm_rf(@res_zip_path)
   end
 end
