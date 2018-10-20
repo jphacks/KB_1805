@@ -8,6 +8,8 @@ require 'securerandom'
 require_relative './convertor.rb'
 require_relative './compress.rb'
 
+set :public_folder, "./web/public"
+
 get "/" do
   haml :index
 end

@@ -1,9 +1,26 @@
 !!!html5
 %html
+  %head
+    %title Image Down
+    %link{:rel => "stylesheet", :href => "/css/milligram.min.css"}
   %body
-    %h1 img2md
-    %p Convert an image to a markdown file.
+    %header.header
+      %section.container
+        %h1.title Image Down : Image to Markdown
 
-    %form{:action => "./upload", :method => "post", :enctype => "multipart/form-data"}
-      %input{:type => "file",   :name => "file"}
-      %input{:type => "submit", :name => "submit"}
+    %section.container
+      %div
+        %form{:action => "./upload", :method => "post", :enctype => "multipart/form-data"}
+          %input{:type => "file",   :name => "file"}
+          %input{:type => "submit", :name => "submit"}
+
+    %section.container
+      %h3 What is this?
+      %p
+        Convert an image to a markdown file.
+
+    %section.container
+      %h3 Supported formats
+      %ul
+        %li This tool supports png and jpg files.
+        %li Texts in a image should be written in English for appropriate converting
