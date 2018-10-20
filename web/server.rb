@@ -16,13 +16,9 @@ post "/upload" do
 
     p "#{@img_file}"
 
-    save_path = "./tmp.png"
-    File.open(save_path, 'wb') do |f|
-      f.write @img_file[:tempfile].read
-    end
-
-    # Convertor::convert(@img_file[:filename])
-    res_file_path = "./tmp/blank.md"
+    input_file_path = @img_file[:tempfile].path
+    res_file_path   = "./tmp/res.md"
+    Convertor::convert(input_file_path, res_file_path)
     content_type Convertor.file_type(res_file_path)
     attachment res_file_path
     File.read(res_file_path)

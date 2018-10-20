@@ -13,8 +13,9 @@ module Convertor
       SUPPORTED_FILE_TYPES.include?(file_type(file_path))
     end
 
-    def convert(file_path)
-      STDERR.puts "Start converting the file '#{file_path}'"
+    def convert(input_path, output_path)
+      STDERR.puts "Start converting the file '#{input_path}'"
+      `python ./tool/img2md.py #{input_path} #{output_path}`
     end
   end
 end
