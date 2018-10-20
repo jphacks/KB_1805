@@ -36,7 +36,7 @@ post "/upload" do
 end
 
 after "/upload" do
-  if Dir[@res_file_path]
+  if @res_file_path && Dir[@res_file_path]
     FileUtils.rm_rf(@res_file_path)
   end
 end
