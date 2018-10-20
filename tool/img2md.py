@@ -29,3 +29,17 @@ def img2wordbox(file):
         )
     
     return word_box
+
+def img2md(file):
+    word_box = img2wordbox(file)
+
+    words = []
+    for box in word_box:
+        words.append(box.content)
+
+    f = open("output.md", "w")
+    for word in words:
+        f.writelines("%s  \n" %(word))
+    f.close()
+
+img2md("sample2.png")
