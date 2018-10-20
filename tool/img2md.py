@@ -24,6 +24,16 @@ def img2wordbox(img):
     
     return word_box
 
+def delwords(img, word_box):
+    for box in word_box:
+        hight = box.position[1][0] - box.position[0][0]
+        width = box.position[1][1] - box.position[0][1]
+        white_img = Image.new("L", (hight, width), 255)
+
+        img.paste(white_img, (box.position[0][0], box.position[0][1]))
+
+    return img
+
 def img2md(input_path, output_path):
     # Load Image
     img = cv2.imread(input_path, cv2.IMREAD_GRAYSCALE)
@@ -32,6 +42,8 @@ def img2md(input_path, output_path):
     img = Image.fromarray(np.uint8(img))
 
     word_box = img2wordbox(img)
+    img = delwords(Image.open(input_path), word_box)
+
 
     words = []
     for box in word_box:
