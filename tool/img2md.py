@@ -41,3 +41,17 @@ def img2md(input_path, output_path):
     for word in words:
         f.writelines("%s  \n" %(word))
     f.close()
+
+def get_args():
+    import argparse
+    parser = argparse.ArgumentParser()
+    parser.add_argument('input_path',  type=str)
+    parser.add_argument('output_path', type=str)
+    return parser.parse_args()
+
+def main():
+    args = get_args()
+    img2md(args.input_path, args.output_path)
+
+if __name__ == "__main__":
+    main()
