@@ -1,6 +1,6 @@
 # Image Down
 
-[![Image Down](image.png)](https://youtu.be/XJ4wPo7KQuw)
+[![Image Down](image_down.png)](https://youtu.be/XJ4wPo7KQuw)
 
 ## 製品概要
 ### メモ × Tech
