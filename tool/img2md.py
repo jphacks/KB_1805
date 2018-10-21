@@ -54,9 +54,15 @@ def img2figure(img, output_path):
     fig_pos = []
     figure = np.asarray(img)
     idx = 0
+
+    MINIMUM_FIGURE_SIZE = 100
+
     for (i, cnt) in enumerate(contours):
         if(hierarchy[0][i][3] != -1): continue
+
         x,y,w,h = cv2.boundingRect(cnt)
+        if w * h < MINIMUM_FIGURE_SIZE: continue
+
         fig_pos.append([x,y,w,h])
         cv2.imwrite((output_path + "/fig/%d.png" %(idx)), figure[y:y+h, x:x+w])
         idx += 1
