@@ -9,6 +9,7 @@ import numpy as np
 
 import sys
 import os
+import codecs
 
 
 def img2wordbox(img):
@@ -92,7 +93,7 @@ def img2md(input_path, output_path):
     for box in word_box:
         words.append(box.content)
 
-    f = open((output_path + "/output.md"), "w")
+    f = codecs.open((output_path + "/output.md"), "w", "utf-8")
     word_idx = 0
     figure_idx = 0
     while(word_idx < len(word_box) or figure_idx < len(fig_box)):
