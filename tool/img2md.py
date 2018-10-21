@@ -40,11 +40,13 @@ def delwords(img, word_box):
     return img
 
 
-def img2figure(img, output_path):
+def img2figure(img, texts, output_path):
     if(os.path.exists(output_path + "/fig") == False):
         os.mkdir(output_path + "/fig")
 
-    edge = np.asarray(img)
+    img_word_deleted = delwords(img, texts)
+    edge = np.asarray(img_word_deleted)
+
     edge = cv2.cvtColor(edge, cv2.COLOR_BGR2GRAY)
     ret, edge = cv2.threshold(edge, np.average(edge), 255, 0)
     edge = cv2.bitwise_not(edge)
@@ -84,8 +86,7 @@ def img2md(input_path, output_path):
     img = Image.fromarray(np.uint8(img))
 
     word_box = img2wordbox(img)
-    img = delwords(Image.open(input_path), word_box)
-    fig_box = img2figure(img, output_path)
+    fig_box = img2figure(Image.open(input_path), word_box, output_path)
 
     words = []
     for box in word_box:
